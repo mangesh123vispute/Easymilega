@@ -17,9 +17,7 @@ class ServiceProviderSerializer(serializers.ModelSerializer):
         return obj.global_number  
 
 class CustomerRequestSerializer(serializers.ModelSerializer):
-    service_name = serializers.CharField(source='service.name', read_only=True)
-
     class Meta:
         model = CustomerRequest
-        fields = ['id', 'name', 'mobile_number', 'service', 'service_name', 'address', 'preferred_time_slot', 'timestamp', 'completed']
+        fields = ['id', 'name', 'mobile_number', 'service', 'address', 'preferred_time_slot', 'timestamp', 'completed']
         read_only_fields = ['timestamp', 'completed']  

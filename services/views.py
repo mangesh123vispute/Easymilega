@@ -65,7 +65,7 @@ class CustomerRequestCreateView(generics.CreateAPIView):
             # Prepare email context
             context = {
                 'name': customer_request.name,
-                'service': customer_request.service.name,
+                'service': customer_request.service,
                 'time_slot': customer_request.preferred_time_slot,
                 'address': customer_request.address,
                 'mobile': customer_request.mobile_number,
