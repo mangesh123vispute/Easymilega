@@ -1,4 +1,4 @@
-# ServiceBuddy - Django Rest Framework Backend
+# Easymilega - Django Rest Framework Backend
 
 ServiceBuddy is a Django Rest Framework (DRF) based backend that provides APIs for managing various services.
 
