@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.utils import timezone
 from .models import Service, ServiceProvider, CustomerRequest
 from .serializers import ServiceSerializer, ServiceProviderSerializer, CustomerRequestSerializer
 
@@ -69,7 +70,7 @@ class CustomerRequestCreateView(generics.CreateAPIView):
                 'address': customer_request.address,
                 'mobile': customer_request.mobile_number,
                 'status': 'Unresolved',
-                'created_at': customer_request.timestamp.strftime('%B %d, %Y at %I:%M %p')
+                'created_at': timezone.localtime(customer_request.timestamp).strftime('%B %d, %Y at %I:%M %p')
             }
             
             # Render HTML email template
