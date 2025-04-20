@@ -2,7 +2,7 @@ from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget
-from .models import Service, ServiceProvider, GlobalSettings
+from .models import Service, ServiceProvider, GlobalSettings, CustomerRequest
 
 class ServiceProviderResource(resources.ModelResource):
     service = fields.Field(
@@ -36,3 +36,24 @@ class ServiceAdmin(ImportExportModelAdmin):
 @admin.register(GlobalSettings)
 class GlobalSettingsAdmin(admin.ModelAdmin):
     list_display = ('id','service_provider_number',)
+
+@admin.register(CustomerRequest)
+class CustomerRequestAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'service', 'mobile_number', 'preferred_time_slot', 'timestamp', 'completed')
+    list_filter = ('completed', 'service', 'timestamp')
+    search_fields = ('name', 'mobile_number', 'address', 'service__name')
+    readonly_fields = ('timestamp',)
+    date_hierarchy = 'timestamp'
+    ordering = ('-timestamp',)
+    
+    fieldsets = (
+        ('Customer Information', {
+            'fields': ('name', 'mobile_number', 'address')
+        }),
+        ('Service Details', {
+            'fields': ('service', 'preferred_time_slot')
+        }),
+        ('Status', {
+            'fields': ('completed', 'timestamp')
+        }),
+    )
