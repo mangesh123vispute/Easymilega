@@ -1,7 +1,8 @@
 from rest_framework.response import Response
 from rest_framework import generics, status
 from django.shortcuts import get_object_or_404
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import render_to_string
 from django.conf import settings
 from .models import Service, ServiceProvider, CustomerRequest
 from .serializers import ServiceSerializer, ServiceProviderSerializer, CustomerRequestSerializer
@@ -60,28 +61,30 @@ class CustomerRequestCreateView(generics.CreateAPIView):
         if serializer.is_valid():
             customer_request = serializer.save()
             
-            # Send email to admin
-            subject = 'New Service Request'
-            message = f"""
-            New service request received:
+            # Prepare email context
+            context = {
+                'name': customer_request.name,
+                'service': customer_request.service.name,
+                'time_slot': customer_request.preferred_time_slot,
+                'address': customer_request.address,
+                'mobile': customer_request.mobile_number,
+                'status': 'Unresolved',
+                'created_at': customer_request.timestamp.strftime('%B %d, %Y at %I:%M %p')
+            }
             
-            Name: {customer_request.name}
-            Service: {customer_request.service.name}
-            Time Slot: {customer_request.preferred_time_slot}
-            Address: {customer_request.address}
-            Mobile: {customer_request.mobile_number}
-            Status: Unresolved
-            Request submitted on: {customer_request.timestamp.strftime('%B %d, %Y at %I:%M %p')}
-            """
+            # Render HTML email template
+            html_message = render_to_string('services/emails/new_request.html', context)
             
             try:
-                send_mail(
-                    subject,
-                    message,
-                    settings.DEFAULT_FROM_EMAIL,
-                    [settings.ADMIN_EMAIL],
-                    fail_silently=False,
+                # Create email message
+                email = EmailMessage(
+                    subject='New Service Request',
+                    body=html_message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[settings.ADMIN_EMAIL],
                 )
+                email.content_subtype = 'html'  # Set content type to HTML
+                email.send(fail_silently=False)
             except Exception as e:
                 # Log the error but don't fail the request
                 print(f"Failed to send email: {str(e)}")

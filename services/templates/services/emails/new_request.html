@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Service Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 0 0 5px 5px;
+        }
+        .detail-row {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+            display: inline-block;
+            width: 150px;
+        }
+        .value {
+            color: #333;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #ff9800;
+            color: white;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>New Service Request</h2>
+    </div>
+    <div class="content">
+        <div class="detail-row">
+            <span class="label">Name:</span>
+            <span class="value">{{ name }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Service:</span>
+            <span class="value">{{ service }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Time Slot:</span>
+            <span class="value">{{ time_slot }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Address:</span>
+            <span class="value">{{ address }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Mobile:</span>
+            <span class="value">{{ mobile }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Status:</span>
+            <span class="status">{{ status }}</span>
+        </div>
+        <div class="detail-row">
+            <span class="label">Request Created At:</span>
+            <span class="value">{{ created_at }}</span>
+        </div>
+    </div>
+    <div class="footer">
+        <p>This is an automated message. Please do not reply to this email.</p>
+    </div>
+</body>
+</html> 
