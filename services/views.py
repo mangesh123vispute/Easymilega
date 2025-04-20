@@ -71,7 +71,7 @@ class CustomerRequestCreateView(generics.CreateAPIView):
             Address: {customer_request.address}
             Mobile: {customer_request.mobile_number}
             Status: Unresolved
-            Timestamp: {customer_request.timestamp}
+            Request submitted on: {customer_request.timestamp.strftime('%B %d, %Y at %I:%M %p')}
             """
             
             try:
