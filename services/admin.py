@@ -3,6 +3,7 @@ from import_export.admin import ImportExportModelAdmin
 from import_export import resources, fields
 from import_export.widgets import ForeignKeyWidget
 from .models import Service, ServiceProvider, GlobalSettings, CustomerRequest
+from django.utils import timezone
 
 class ServiceProviderResource(resources.ModelResource):
     service = fields.Field(
@@ -39,12 +40,17 @@ class GlobalSettingsAdmin(admin.ModelAdmin):
 
 @admin.register(CustomerRequest)
 class CustomerRequestAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'service', 'mobile_number', 'preferred_time_slot', 'timestamp', 'completed')
+    list_display = ('id', 'name', 'service', 'mobile_number', 'preferred_time_slot', 'formatted_timestamp', 'completed')
     list_filter = ('completed', 'service', 'timestamp')
     search_fields = ('name', 'mobile_number', 'address', 'service__name')
     readonly_fields = ('timestamp',)
     date_hierarchy = 'timestamp'
     ordering = ('-timestamp',)
+    
+    def formatted_timestamp(self, obj):
+        return timezone.localtime(obj.timestamp).strftime('%d %b %Y, %I:%M %p')
+    formatted_timestamp.short_description = 'Request Time'
+    formatted_timestamp.admin_order_field = 'timestamp'
     
     fieldsets = (
         ('Customer Information', {
