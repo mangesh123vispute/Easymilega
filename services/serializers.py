@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Service, ServiceProvider
+from .models import Service, ServiceProvider, CustomerRequest
 
 class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,3 +15,11 @@ class ServiceProviderSerializer(serializers.ModelSerializer):
 
     def get_global_number(self, obj):
         return obj.global_number  
+
+class CustomerRequestSerializer(serializers.ModelSerializer):
+    service_name = serializers.CharField(source='service.name', read_only=True)
+
+    class Meta:
+        model = CustomerRequest
+        fields = ['id', 'name', 'mobile_number', 'service', 'service_name', 'address', 'preferred_time_slot', 'timestamp', 'completed']
+        read_only_fields = ['timestamp', 'completed']  

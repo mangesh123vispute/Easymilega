@@ -30,3 +30,15 @@ class GlobalSettings(models.Model):
     def __str__(self):
         return f"Service Provider Number: {self.service_provider_number}"
 
+class CustomerRequest(models.Model):
+    name = models.CharField(max_length=255)
+    mobile_number = models.CharField(max_length=20)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='requests')
+    address = models.TextField()
+    preferred_time_slot = models.CharField(max_length=50)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Request by {self.name} for {self.service.name}"
+
