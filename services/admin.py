@@ -40,8 +40,8 @@ class GlobalSettingsAdmin(admin.ModelAdmin):
 
 @admin.register(CustomerRequest)
 class CustomerRequestAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'service', 'mobile_number', 'preferred_time_slot', 'formatted_timestamp', 'completed')
-    list_filter = ('completed', 'service', 'timestamp')
+    list_display = ('id', 'name', 'service', 'mobile_number', 'preferred_time_slot', 'delivery_date', 'formatted_timestamp', 'completed')
+    list_filter = ('completed', 'service', 'timestamp', 'delivery_date')
     search_fields = ('name', 'mobile_number', 'address', 'service__name')
     readonly_fields = ('timestamp',)
     date_hierarchy = 'timestamp'

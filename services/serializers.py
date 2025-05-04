@@ -19,5 +19,5 @@ class ServiceProviderSerializer(serializers.ModelSerializer):
 class CustomerRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerRequest
-        fields = ['id', 'name', 'mobile_number', 'service', 'address', 'preferred_time_slot', 'timestamp', 'completed']
+        fields = ['id', 'name', 'mobile_number', 'service', 'address', 'preferred_time_slot', 'delivery_date', 'timestamp', 'completed']
         read_only_fields = ['timestamp', 'completed']  
