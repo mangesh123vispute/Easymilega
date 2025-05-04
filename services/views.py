@@ -67,7 +67,7 @@ class CustomerRequestCreateView(generics.CreateAPIView):
                 'name': customer_request.name,
                 'service': customer_request.service,
                 'time_slot': customer_request.preferred_time_slot,
-                'delivery_date': customer_request.delivery_date.strftime('%Y-%m-%d') if customer_request.delivery_date else 'N/A',
+                'delivery_date': customer_request.delivery_date if customer_request.delivery_date else 'N/A',
                 'address': customer_request.address,
                 'mobile': customer_request.mobile_number,
                 'status': 'Unresolved',
