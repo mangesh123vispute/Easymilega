@@ -57,7 +57,7 @@ class CustomerRequestAdmin(admin.ModelAdmin):
             'fields': ('name', 'mobile_number', 'address')
         }),
         ('Service Details', {
-            'fields': ('service', 'preferred_time_slot')
+            'fields': ('service', 'preferred_time_slot', 'delivery_date')
         }),
         ('Status', {
             'fields': ('completed', 'timestamp')
