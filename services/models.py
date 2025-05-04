@@ -36,7 +36,7 @@ class CustomerRequest(models.Model):
     service = models.TextField()
     address = models.TextField()
     preferred_time_slot = models.CharField(max_length=50)
-    delivery_date = models.DateField(null=True, blank=True)
+    delivery_date = models.CharField(max_length=100, null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     completed = models.BooleanField(default=False)
 
